@@ -1,18 +1,24 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h4>Welcome to Greg's List!</h4>
+        <p>Please let us know where you are browsing:</p>
+        <LocationSelect></LocationSelect>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import LocationSelect from "../components/LocationSelect";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
+    LocationSelect
   }
-}
+};
 </script>
+
+<style scoped>
+</style>
