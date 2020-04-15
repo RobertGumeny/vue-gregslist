@@ -2,11 +2,11 @@
   <div class="container-fluid" id="nav">
     <div class="row mb-0">
       <div class="col-12 text-center">
-        <h2>Greg's List</h2>
-        <h4>{{ location.location }}</h4>
+        <h2 class="mb-0">Greg's List</h2>
+        <h5 class="mb-0">{{ location }}</h5>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-0">
       <div class="col-12 text-center">
         <router-link to="/">Home</router-link>
         <span class="mx-1">|</span>
