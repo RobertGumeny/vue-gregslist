@@ -33,6 +33,19 @@ let store = new Vuex.Store({
       state.activeCar = car;
     },
     //NOTE House mutations
+    setHouses(state, houses) {
+      state.houses = houses;
+    },
+    setActiveHouse(state, house) {
+      state.activeHouse = house;
+    },
+    // NOTE Job mutations
+    setJobs(state, jobs) {
+      state.jobs = jobs;
+    },
+    setActiveJob(state, job) {
+      state.activeJob = job;
+    },
   },
   actions: {
     // NOTE Location actions
@@ -73,6 +86,72 @@ let store = new Vuex.Store({
       }
     },
     // NOTE House actions
+    async getHouses({ commit, dispatch }) {
+      try {
+        let res = await _api.get("houses");
+        commit("setHouses", res.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getHouse({ commit, dispatch }, houseId) {
+      try {
+        let res = await _api.get(`houses/${houseId}`);
+        commit("setActiveHouse", res.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async createHouse({ commit, dispatch }, newHouse) {
+      try {
+        let res = await _api.post("houses", newHouse);
+        dispatch("getHouses");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteHouse({ commit, dispatch }, houseId) {
+      try {
+        await _api.delete("houses/" + houseId);
+        dispatch("getHouses");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    // NOTE Job actions
+    async getJobs({ commit, dispatch }) {
+      try {
+        let res = await _api.get("jobs");
+        commit("setJobs", res.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getJob({ commit, dispatch }, jobId) {
+      try {
+        let res = await _api.get(`jobs/${jobId}`);
+        commit("setActiveJob", res.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async createJob({ commit, dispatch }, newJob) {
+      try {
+        let res = await _api.post("jobs", newJob);
+        dispatch("getJobs");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteJob({ commit, dispatch }, jobId) {
+      try {
+        await _api.delete("jobs/" + jobId);
+        dispatch("getJobs");
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   modules: {},
 });
