@@ -9,10 +9,9 @@ let _api = axios.create({
   timeout: 10000,
 });
 
-export default new Vuex.Store({
+let store = new Vuex.Store({
   state: {
-    location: {},
-    activeLocation: {},
+    location: "",
     cars: [],
     activeCar: {},
     houses: [],
@@ -24,11 +23,16 @@ export default new Vuex.Store({
     // NOTE Location mutations
     setLocation(state, location) {
       state.location = location;
+      localStorage.setItem("location", location);
     },
     // NOTE Car mutations
     setCars(state, cars) {
       state.cars = cars;
     },
+    setActiveCar(state, car) {
+      state.activeCar = car;
+    },
+    //NOTE House mutations
   },
   actions: {
     // NOTE Location actions
@@ -44,6 +48,43 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async getCar({ commit, dispatch }, carId) {
+      try {
+        let res = await _api.get(`cars/${carId}`);
+        commit("setActiveCar", res.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async createCar({ commit, dispatch }, newCar) {
+      try {
+        let res = await _api.post("cars", newCar);
+        dispatch("getCars");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteCar({ commit, dispatch }, carId) {
+      try {
+        await _api.delete("cars/" + carId);
+        dispatch("getCars");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    // NOTE House actions
   },
   modules: {},
 });
+
+function loadLocation() {
+  let location = localStorage.getItem("location");
+  store.commit("setLocation", location || "Please select a city...");
+}
+loadLocation();
+
+export default store;
+
+window.navigator.geolocation.getCurrentPosition((position) =>
+  console.log(position)
+);

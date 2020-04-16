@@ -3,6 +3,12 @@
     <div class="row">
       <div class="col-12">
         <h5>
+          <u>List a car:</u>
+        </h5>
+        <CreateCar></CreateCar>
+      </div>
+      <div class="col">
+        <h5>
           <u>Cars for sale:</u>
         </h5>
         <div class="row justify-content-center">
@@ -16,6 +22,7 @@
 
 <script>
 import Car from "../components/Car";
+import CreateCar from "../components/CreateCar";
 export default {
   name: "cars",
   data() {
@@ -31,11 +38,15 @@ export default {
   },
   methods: {},
   components: {
-    Car
+    Car,
+    CreateCar
   }
 };
 </script>
 
 
 <style scoped>
+.cars {
+  height: 100%;
+}
 </style>

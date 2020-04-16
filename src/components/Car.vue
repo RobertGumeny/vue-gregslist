@@ -6,8 +6,8 @@
       <h6 class="price font-weight-bold">${{carData.price}}</h6>
     </div>
     <div class="div">
-      <button class="btn btn-sm btn-primary text-white mb-1">More Info</button>
-      <button class="btn btn-sm btn-danger text-white mb-1">Delete</button>
+      <button class="btn btn-sm btn-primary text-white mb-1 mr-1" @click="getDetails()">More Info</button>
+      <button class="btn btn-sm btn-danger text-white mb-1" @click="deleteCar()">Delete</button>
     </div>
   </div>
 </template>
@@ -21,7 +21,18 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    getDetails() {
+      this.$store.commit("setActiveCar", {});
+      this.$router.push({
+        name: "CarDetails",
+        params: { carId: this.carData._id }
+      });
+    },
+    deleteCar() {
+      this.$store.dispatch("deleteCar", this.carData._id);
+    }
+  },
   components: {}
 };
 </script>
@@ -29,6 +40,7 @@ export default {
 
 <style scoped>
 .car {
+  background-color: #fff;
   border: 1px solid #2c3e50;
   border-radius: 5px;
   height: 12.5rem;
